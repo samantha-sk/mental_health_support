@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindcure - Wellness of Mind</title>
+    <style>
+        body {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            background-color: rgba(214, 175, 130, 0.496);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px;
+            font-size: 2.5em;
+            color: #2c3e50;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .deck {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 0; /* Remove margin between decks */
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .fx {
+            flex: 1 1 calc(50% - 20px); /* Adjust width to include spacing */
+            margin: 10px; /* Margin between items */
+            padding: 20px;
+            border: 2px solid black;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #f9f9f9;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .fx:hover {
+            transform: scale(1.02);
+        }
+
+        .fx h3 {
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+
+        .fx p {
+            display: none; /* Initially hide content */
+            font-size: 1em;
+        }
+
+        .fx.active p {
+            display: block; /* Show content when active */
+        }
+
+        @media (max-width: 768px) {
+            .fx {
+                flex: 1 1 calc(100% - 20px); /* Adjust width for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>A-Z Mental Conditions</h1>
+    <div class="container">
+        <div class="deck">
+            <div class="fx" style="background-color: lightblue">
+                <h3>Anxiety</h3>
+                <p>Anxiety is a feeling of fear, dread, and uneasiness. It might cause you to sweat, feel restless and tense, and have a rapid heartbeat. It can be a normal reaction to stress. For example, you might feel anxious when faced with a difficult problem at work, before taking a test, or before making an important decision.</p>
+            </div>
+            <div class="fx" style="background-color: plum">
+                <h3>Dementia</h3>
+                <p>Dementia is not a specific disease but is rather a general term for the impaired ability to remember, think, or make decisions that interferes with doing everyday activities. Though dementia mostly affects older adults, it is not a part of normal aging.</p>
+            </div>
+        </div>
+        <div class="deck">
+            <div class="fx" style="background-color: darkseagreen">
+                <h3>Schizophrenia</h3>
+                <p>Schizophrenia is a psychiatric condition that has severe effects on your physical and mental well-being. It disrupts how your brain works, interfering with things like your thoughts, memory, senses and behaviors. As a result, you may struggle in many parts of your day-to-day life.</p>
+            </div>
+            <div class="fx" style="background-color: palevioletred">
+                <h3>OCD</h3>
+                <p>Obsessive-compulsive disorder (OCD) is a disorder in which people have recurring, unwanted thoughts or sensations (obsessions). To get rid of the thoughts, they feel driven to do something repetitively (compulsions). This can significantly impact and interfere with a person’s daily activities & social interactions.</p>
+            </div>
+        </div>
+        <div class="deck">
+            <div class="fx" style="background-color: grey">
+                <h3>PTSD</h3>
+                <p>Post-traumatic stress disorder (PTSD) is a mental health condition that can develop as a response to people who have experienced any traumatic event. This can be a car or other serious accident, physical or sexual assault, war-related events or torture, or natural disasters such as bushfires or floods.</p>
+            </div>
+            <div class="fx" style="background-color: cornflowerblue">
+                <h3>Clinical Depression</h3>
+                <p>Depression is a mood disorder characterised by lowering of mood, loss of interest and enjoyment, and reduced energy. There are varying levels of severity and symptoms related to depression. Symptoms of depression can lead to increased risk of suicidal thoughts or behaviours.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.fx').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

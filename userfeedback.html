@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Engagement</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("https://images.pexels.com/photos/1631677/pexels-photo-1631677.jpeg?auto=compress&cs=tinysrgb&w=600");
+            background-size: cover;
+            background-position: center;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+        }
+
+        h1 {
+            margin-top: 30px;
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            transition: color 0.3s ease;
+        }
+
+        h1:hover {
+            color: #e74c3c;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1200px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            margin-top: 20px;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            margin: 15px;
+            padding: 20px;
+            width: calc(33% - 40px);
+            max-width: 350px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        .card button {
+            background-color: #e74c3c;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        .card button:hover {
+            background-color: #c0392b;
+        }
+
+        .feedback-form {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            margin: 40px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease, opacity 0.5s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .feedback-form.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .feedback-form h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .feedback-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .feedback-form input, .feedback-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dcdcdc;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            font-size: 1em;
+            background-color: #fafafa;
+        }
+
+        .feedback-form button {
+            background-color: #e74c3c;
+            border: none;
+            color: white;
+            padding: 12px;
+            font-size: 1em;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        .feedback-form button:hover {
+            background-color: #c0392b;
+        }
+
+        @media (max-width: 900px) {
+            .card {
+                width: calc(50% - 40px);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                width: calc(100% - 40px);
+            }
+
+            .feedback-form {
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Join Us to Serve the Community</h1>
+    <div class="container">
+        <div class="card">
+            <h2>Work with Our Community</h2>
+            <img src="https://via.placeholder.com/300" alt="community service">
+            <button>Find Out More</button>
+        </div>
+        <div class="card">
+            <h2>Mental Health Awareness Week</h2>
+            <img src="https://via.placeholder.com/300" alt="Mental health statistics">
+            <button>Join Us</button>
+        </div>
+        <div class="card">
+            <h2>Provide Helping Hands</h2>
+            <img src="https://via.placeholder.com/300" alt="donate us">
+            <button>Donate Us</button>
+        </div>
+    </div>
+    <div class="feedback-form" id="feedbackFormContainer">
+        <h2>We Value Your Feedback</h2>
+        <form id="feedbackForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+
+            <button type="submit">Submit Feedback</button>
+        </form>
+        <p id="responseMessage" style="display: none; color: green; text-align: center;">Thank you for your feedback!</p>
+    </div>
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('responseMessage').style.display = 'block';
+            event.target.reset();
+        });
+
+        window.addEventListener('scroll', function() {
+            const feedbackForm = document.getElementById('feedbackFormContainer');
+            const scrollPosition = window.scrollY + window.innerHeight;
+            const formPosition = feedbackForm.offsetTop;
+
+            if (scrollPosition > formPosition) {
+                feedbackForm.classList.add('visible');
+            }
+        });
+    </script>
+</body>
+</html>

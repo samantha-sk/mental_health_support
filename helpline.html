@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<head>
+  <title>Emergency Helpline</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    .dropdown-container {
+      padding: 30px;
+      background-color: #f3f7f3;
+      border-radius: 8px;
+      width: 400px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      box-sizing: border-box;
+      position: relative;
+      transition: box-shadow 0.3s ease-in-out;
+    }
+
+    .dropdown-container:hover {
+      box-shadow: 0 20px 10px cadetblue;
+    }
+
+    .dropdown-label {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .radio-group {
+      margin-bottom: 20px;
+    }
+
+    .radio-option {
+      margin: 5px 0;
+    }
+
+    .radio-option input {
+      margin-right: 10px;
+    }
+
+    .go-button {
+      display: none;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      background-color:cadetblue;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+    }
+
+    .go-button:hover {
+      background-color:orange;
+    }
+  </style>
+</head>
+<body>
+  <div class="dropdown-container">
+    <div class="radio-group">
+      <label class="dropdown-label">Where are you based?</label>
+      <div class="radio-option">
+        <input type="radio" id="country-usa" name="country" value="USA">
+        <label for="country-usa">United States</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="country-india" name="country" value="India">
+        <label for="country-india">India</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="country-uk" name="country" value="UK">
+        <label for="country-uk">United Kingdom</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="country-australia" name="country" value="Australia">
+        <label for="country-australia">Australia</label>
+      </div>
+    </div>
+
+    <div class="radio-group">
+      <label class="dropdown-label">How can we help you?</label>
+      <div class="radio-option">
+        <input type="radio" id="help-abuse" name="help" value="Abuse and domestic violence">
+        <label for="help-abuse">Abuse and domestic violence</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="help-addiction" name="help" value="Addiction">
+        <label for="help-addiction">Addiction</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="help-adhd" name="help" value="ADHD">
+        <label for="help-adhd">ADHD</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="help-dementia" name="help" value="Alzheimer’s and dementia">
+        <label for="help-dementia">Alzheimers and dementia</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="help-autism" name="help" value="Autism">
+        <label for="help-autism">Autism</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="help-others" name="help" value="Autism">
+        <label for="help-others">Others</label>
+      </div>
+    </div>
+
+    <button id="goButton" class="go-button">Go</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const countryRadios = document.getElementsByName('country');
+      const helpRadios = document.getElementsByName('help');
+      const goButton = document.getElementById('goButton');
+
+      function toggleGoButton() {
+        const countrySelected = Array.from(countryRadios).some(radio => radio.checked);
+        const helpSelected = Array.from(helpRadios).some(radio => radio.checked);
+        goButton.style.display = (countrySelected && helpSelected) ? 'block' : 'none';
+      }
+
+      countryRadios.forEach(radio => radio.addEventListener('change', toggleGoButton));
+      helpRadios.forEach(radio => radio.addEventListener('change', toggleGoButton));
+    })
+    ;
+  </script>
+</body>
+</html>

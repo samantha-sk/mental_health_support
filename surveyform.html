@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Assessment</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            background-image: url("https://miro.medium.com/v2/resize:fit:1400/1*aZjZ5NxJYgZufhTC7beWwQ.png");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-10px);
+        }
+
+        h1 {
+            text-align: center;
+            color: #555;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #666;
+            font-weight: bold;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 5px;
+            border: 1px solid #ccc;
+            border-radius: 50px;
+            transition: border 0.3s ease;
+            font-size: 16px;
+            background-color: #f5f5f5;
+            color: #555;
+            text-indent: 10px;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color:darkblue;
+            outline: none;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 50px;
+            background-color:#333;
+            color: white;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color:aqua;
+        }
+
+        #result-container {
+            display: none;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .ring-container {
+            position: relative;
+            display: inline-block;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+        }
+
+        .ring {
+            stroke:blueviolet;
+            stroke-width: 10;
+            fill: none;
+            stroke-dasharray: 0 440;
+            transition: stroke-dasharray 0.5s ease;
+        }
+
+        .ring-bg {
+            stroke:#ccc;
+            stroke-width: 10;
+            fill: none;
+        }
+
+        .ring-text {
+            font-size: 24px;
+            fill: #333;
+        }
+
+        .result-message {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mental Health Assessment</h1>
+        <form id="assessmentForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <div id="error-name" class="error">Please enter your name.</div>
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required min="0" max="100">
+            <div id="error-age" class="error">Age must be between 0 and 100.</div>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div id="error-email" class="error">Please enter a valid email address.</div>
+
+            <label for="mood">How would you rate your current mood?</label>
+            <select id="mood" name="mood" required>
+                <option value="">Select</option>
+                <option value="excellent">Excellent</option>
+                <option value="good">Good</option>
+                <option value="fair">Fair</option>
+                <option value="poor">Poor</option>
+            </select>
+            <div id="error-mood" class="error">Please select your mood.</div>
+
+            <label for="stress">Rate your current stress level (0-10):</label>
+            <input type="number" id="stress" name="stress" required min="0" max="10">
+            <div id="error-stress" class="error">Stress level must be between 0 and 10.</div>
+
+            <label for="sleep">How many hours do you sleep on average per night?</label>
+            <input type="number" id="sleep" name="sleep" required min="0">
+            <div id="error-sleep" class="error">Please enter your average sleep hours.</div>
+
+            <label for="comments">Any additional comments:</label>
+            <textarea id="comments" name="comments" rows="4"></textarea>
+
+            <button type="button" onclick="submitAssessment()">Submit</button>
+        </form>
+    </div>
+
+    <div id="result-container">
+        <div class="container">
+            <div class="ring-container">
+                <svg viewBox="0 0 150 150">
+                    <circle class="ring-bg" cx="75" cy="75" r="70"/>
+                    <circle id="ring" class="ring" cx="75" cy="75" r="70"/>
+                    <text id="score-text" class="ring-text" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle">0%</text>
+                </svg>
+            </div>
+            <div id="result-message" class="result-message"></div>
+        </div>
+    </div>
+
+    <script>
+        function calculateScore(mood, stress, sleep) {
+            let score = 100;
+
+            switch(mood) {
+                case 'poor': score -= 40; break;
+                case 'fair': score -= 20; break;
+                case 'good': score -= 10; break;
+                case 'excellent': score += 10; break;
+            }
+
+            score -= (stress / 10) * 30;
+
+            if (sleep < 4) score -= 30;
+            else if (sleep < 6) score -= 15;
+            else if (sleep < 8) score -= 5;
+            else score += 10;
+
+            return Math.max(0, Math.min(score, 100));
+        }
+        function submitAssessment() {
+            const form = document.getElementById('assessmentForm');
+            const requiredFields = ['name', 'age', 'email', 'mood', 'stress', 'sleep'];
+            let isValid = true;
+        
+            for (const field of requiredFields) {
+                const input = document.getElementById(field);
+                const errorDiv = document.getElementById(`error-${field}`);
+                if (!input.value) {
+                    errorDiv.style.display = 'block';
+                    isValid = false;
+                } else {
+                    errorDiv.style.display = 'none';
+                }
+            }
+        
+            const age = document.getElementById('age').value;
+            const email = document.getElementById('email').value;
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        
+            if (age < 0 || age > 100) {
+                document.getElementById('error-age').style.display = 'block';
+                isValid = false;
+            }
+        
+            if (!emailPattern.test(email)) {
+                document.getElementById('error-email').style.display = 'block';
+                isValid = false;
+            }
+        
+            if (!isValid) return;       
+            const mood = document.getElementById('mood').value;
+            const stress = document.getElementById('stress').value;
+            const sleep = document.getElementById('sleep').value;
+            const score = calculateScore(mood, stress, sleep);
+
+            const ringLength = 2 * Math.PI * 70;
+            document.getElementById('ring').style.strokeDasharray = `${(score / 100) * ringLength} ${ringLength}`;
+            document.getElementById('score-text').textContent = `${score}%`;
+
+            let resultText;
+            if (score < 20) {
+                resultText = 'Assessment Result: Poor. Please seek help immediately.';
+            } else if (score < 50) {
+                resultText = 'Assessment Result: Average. Consider seeking support if needed.';
+            } else {
+                resultText = 'Assessment Result: Good. Continue to take care of your mental health.';
+            }
+
+            document.getElementById('result-message').textContent = resultText;
+            document.getElementById('result-container').style.display = 'block';
+
+            form.reset();
+        }
+    </script>
+</body>
+</html>
